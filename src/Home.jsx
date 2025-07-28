@@ -56,7 +56,7 @@ function Home() {
             </div>
 
             <div className="cat-photo-container">
-              <img src="/tackle-tbr/Felix-small.jpeg" alt="Felix" className="cat-photo" />
+              <img src="/tackle-tbr/Felix-small.jpg" alt="Felix" className="cat-photo" />
             </div>
           </motion.div>
 
