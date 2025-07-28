@@ -8,7 +8,7 @@ import Dashboard from './Dashboard';
 
 function App() {
   return (
-    <Router basename="/TBRapp">
+    <Router basename="/tackle-tbr">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/welcome" element={<Welcome />} />
