@@ -25,7 +25,7 @@ function Home() {
           className={`home-heading ${showMainContent ? 'pinned' : ''}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 3, ease: 'easeInOut' }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
         >
           Hey, reader.
         </motion.h1>
@@ -40,7 +40,7 @@ function Home() {
             className="main-content"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 2, ease: 'easeInOut' }}
+            transition={{ duration: 1.5, delay: 1.65, ease: 'easeInOut' }}
           >
             <div className="cream-box">
               <h2 className="cream-heading">Welcome to Project TBR ✨</h2>
