@@ -94,7 +94,7 @@ function Home() {
                   <div className="bottom-row">
                     <div className="cream-box second-cream">
                       <h2>On the creator 🌺</h2>
-                      <p>Alyssa (/ ah lees ah/) is a 23-year-old relentless polymath from Minneapolis. She enjoys algorithms, number theory, genetic studies, evolutionary biology, and theoretical computer science. Oh, and Fantasy novels with dragons and swords, of course.</p>
+                      <p>Alyssa (/ ah lees ah/ ) is a 23-year-old relentless polymath from Minneapolis. She enjoys algorithms, number theory, genetic studies, evolutionary biology, and theoretical computer science. Oh, and Fantasy novels with dragons and swords, of course.</p>
 
                       <p>When she's not reading or coding up something new, you'll find her outdoors, running so often that you'll start to wonder what the hell she's training for.</p>
 
