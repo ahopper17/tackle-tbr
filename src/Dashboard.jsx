@@ -2,6 +2,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import { felixQuotes, felixImages } from './FelixContent';
+import ProgressBox from './ProgressBox';
+import {useState } from 'react';
 
 
 function Dashboard() {
@@ -9,8 +11,8 @@ function Dashboard() {
   const navigate = useNavigate();
   const randomQuote = felixQuotes[Math.floor(Math.random() * felixQuotes.length)];
   const randomImage = felixImages[Math.floor(Math.random() * felixImages.length)];
+  const [user, setUser] = useState(location.state?.user ?? null);
 
-  const user = location.state?.user;
 
   if (!user) {
     return (
@@ -40,8 +42,7 @@ function Dashboard() {
       </header>
       <main className="dashboard-main">
         <div className="tbr-stats-box">
-          <h1 className="box-header"> Progress </h1>
-          <p> Work in progress! Check back soon!</p>
+          <ProgressBox user={user} setUser={setUser} />
         </div>
 
         <div className="activities-box">

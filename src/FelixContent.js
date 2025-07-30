@@ -4,7 +4,6 @@ export const felixQuotes = [
   "I knocked over your TBR in protest. Start reading.",
   "You're not a collector. You're a hoarder with pretty fonts.",
   "I've seen better impulse control in a goldfish.",
-  "You're rewriting your reading habits, one book at a time.",
   "Finish a book or I shred your dust jackets. I don't bluff.",
   "You said no more books. That was three books ago.",
   "Some of these books are older than your New Year's resolution.",
@@ -13,7 +12,7 @@ export const felixQuotes = [
   "I sleep 18 hours a day and still finish more than you.",
   "You're one library late fee away from financial ruin.",
   "At this point, even I know how The Priory of the Orange Tree ends.",
-  "Just admit it — you liked the cover. There's no shame. Only shame.",
+  "Just admit it — you liked the cover. Only shame.",
   "You bought three books and read zero. Your math isn't mathing.",
   "I threw up on your TBR. You're welcome. Fewer choices now.",
   "You track everything but your accountability.",
@@ -23,5 +22,6 @@ export const felixQuotes = [
 ];
 
 export const felixImages = [
-  "/tackle-tbr/Felix-what.jpeg"
+  "/tackle-tbr/Felix-what.jpeg",
+  "/tackle-tbr/Felix-smug.jpg"
 ];

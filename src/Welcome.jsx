@@ -229,12 +229,14 @@ function StepContent({ step, className, formData, setFormData, goToNextStep, nav
                 alert("Please enter a username and password.");
                 return;
               }
-            
+              const starting_tbr = parseInt(profileData.tbr_count); 
+              
               const { error } = await supabase.from("profiles").insert([
                 {
                   username,
                   password,
-                  ...profileData
+                  ...profileData,
+                  starting_tbr
                 }
               ]);
             
