@@ -6,6 +6,15 @@
     font-family: inherit;
 }
 
+.loading-heading {
+    font-size: 5rem;
+    font-weight: 600;
+    color: var(--text);
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
 .dashboard-topbar {
     display: flex;
     justify-content: space-between;

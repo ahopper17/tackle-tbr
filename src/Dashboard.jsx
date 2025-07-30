@@ -3,16 +3,43 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import { felixQuotes, felixImages } from './FelixContent';
 import ProgressBox from './ProgressBox';
-import {useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { supabase } from './supabaseClient';
 
 function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
   const randomQuote = felixQuotes[Math.floor(Math.random() * felixQuotes.length)];
   const randomImage = felixImages[Math.floor(Math.random() * felixImages.length)];
-  const [user, setUser] = useState(location.state?.user ?? null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+
+  useEffect(() => {
+    const fetchFreshUser = async () => {
+      const username = location.state?.user?.username;
+      if (username) {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('username', username)
+          .single();
+
+        if (error) {
+          console.error('Error fetching fresh user data:', error.message);
+        } else {
+          setUser(data);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchFreshUser();
+  }, []);
+
+  if (loading) {
+    return <div className="loading-heading"><p>Loading your dashboard...</p></div>;
+  }
 
   if (!user) {
     return (

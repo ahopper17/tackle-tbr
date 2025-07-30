@@ -21,6 +21,9 @@ function ProgressBox({ user, setUser }) {
     const yearsToZero = monthsToZero / 12;
     const [showPunishment, setShowPunishment] = useState(false);
     const [punishment, setPunishment] = useState('');
+    const [showLockModal, setShowLockModal] = useState(false);
+    const [lockTarget, setLockTarget] = useState(user.ban_lock_target ?? '');
+    console.log("ban_lock_active:", user.ban_lock_active);
 
 
 
@@ -64,7 +67,11 @@ function ProgressBox({ user, setUser }) {
 
     return (
         <div className="progress-box">
-            <h2 className="box-header">Progress</h2>
+            <h2 className="progress-header">Progress</h2>
+            <div className="tbr-indicator">
+                <span>You currently have <strong>{currentTBR}</strong> books on your TBR 📚</span>
+            </div>
+
             <div className="progress-bar-background">
                 <div className="progress-bar-fill" style={{ width: `${percent}%` }}></div>
             </div>
@@ -83,12 +90,15 @@ function ProgressBox({ user, setUser }) {
                 </button>
             </div>
 
-            <p>
-                At your current pace of <strong>{average_books_month}</strong> books/month, you'll need about <strong>{monthsToZero.toFixed(1)}</strong> months (or <strong>{yearsToZero.toFixed(1)}</strong> years) to read your whole TBR — if no new books sneak in! 📚
-            </p>
-            <p>
-                To reach your goal of <strong>{goal}</strong> books by <strong>{formattedEndDate}</strong>, you'd need to read <strong>{requiredPace.toFixed(1)}</strong> books/month. You're {onTrack ? "on track ✅" : "a bit behind 😬"}.
-            </p>
+            <div className="tbr-stats-row">
+                <p className="tbr-stat">
+                    At your current pace of <span className="highlight">{average_books_month}</span> books/month, you'll need about <span className="highlight">{monthsToZero.toFixed(1)}</span> months (or <span className="highlight">{yearsToZero.toFixed(1)}</span> years) to read your whole TBR — if no new books sneak in! 📚
+                </p>
+
+                <p className="tbr-stat">
+                    To reach your goal of <span className="highlight">{goal}</span> books by <span className="highlight">{formattedEndDate}</span>, you'd need to read <span className="highlight">{requiredPace.toFixed(1)}</span> books/month. You're {onTrack ? "on track ✅ Keep it up!" : "a bit behind 😬 Get reading!"}
+                </p>
+            </div>
 
             <div className="buying-ban-status">
                 <p>
@@ -99,28 +109,51 @@ function ProgressBox({ user, setUser }) {
                 </p>
 
                 {user.buying_ban_active ? (
-                    <button
-                        className="ban-toggle-button"
-                        onClick={async () => {
-                            const { data, error } = await supabase
-                                .from('profiles')
-                                .update({ buying_ban_active: false })
-                                .eq('username', user.username)
-                                .select()
-                                .single();
+                    user.ban_lock_active && currentTBR > user.ban_lock_target ? (
+                        <p className="locked-warning">
+                            🔒 Ban locked until your TBR is {user.ban_lock_target} or lower.
+                        </p>
+                    ) : (
+                        <div className="ban-button-row">
+                            {user.buying_ban_active && !user.ban_lock_target && (
+                                <button
+                                    className="ban-button"
+                                    onClick={() => setShowLockModal(true)}
+                                >
+                                    🔒 Lock Ban Until TBR is Lower
+                                </button>
+                            )}
 
-                            if (error) {
-                                console.error("Error lifting ban:", error.message);
-                            } else {
-                                setUser(data);
-                            }
-                        }}
-                    >
-                        Lift Ban
-                    </button>
+                            {user.buying_ban_active && (!user.ban_lock_active || currentTBR <= user.ban_lock_target) && (
+                                <button
+                                    className="ban-button"
+                                    onClick={async () => {
+                                        const { data, error } = await supabase
+                                            .from('profiles')
+                                            .update({
+                                                buying_ban_active: false,
+                                                ban_lock_target: null,
+                                                ban_lock_active: false,
+                                            })
+                                            .eq('username', user.username)
+                                            .select()
+                                            .single();
+
+                                        if (error) {
+                                            console.error("Error lifting ban:", error.message);
+                                        } else {
+                                            setUser(data);
+                                        }
+                                    }}
+                                >
+                                    🎉 Lift Ban
+                                </button>
+                            )}
+                        </div>
+                    )
                 ) : (
                     <button
-                        className="ban-toggle-button"
+                        className="ban-button"
                         onClick={async () => {
                             const { data, error } = await supabase
                                 .from('profiles')
@@ -139,14 +172,57 @@ function ProgressBox({ user, setUser }) {
                         Start New Ban
                     </button>
                 )}
+
             </div>
+
+            {showLockModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Lock the Book Buying Ban</h3>
+                        <p>Set a TBR number that you must reach before you're allowed to lift your ban.</p>
+                        <input
+                            type="number"
+                            value={lockTarget}
+                            onChange={(e) => setLockTarget(Number(e.target.value))}
+                            className="goal-input"
+                            min={0}
+                        />
+                        <div className="modal-buttons">
+                            <button
+                                className="save-lock-button"
+                                onClick={async () => {
+                                    const { data, error } = await supabase
+                                        .from('profiles')
+                                        .update({
+                                            ban_lock_target: lockTarget,
+                                            ban_lock_active: true
+                                        })
+                                        .eq('username', user.username)
+                                        .select()
+                                        .single();
+                                    if (error) console.error("Lock save error:", error.message);
+                                    else {
+                                        setUser(data);
+                                        setShowLockModal(false);
+                                    }
+                                }}
+                            >
+                                Lock Ban
+                            </button>
+                            <button onClick={() => setShowLockModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {showPunishment && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h3>🚨 Book Buying Ban Violation!</h3>
                         <p>{punishment}</p>
-                        <button onClick={() => setShowPunishment(false)}>Got it!</button>
+                        <button className="save-goal-button"
+                            onClick={() => setShowPunishment(false)}>
+                            Got it!</button>
                     </div>
                 </div>
             )}
