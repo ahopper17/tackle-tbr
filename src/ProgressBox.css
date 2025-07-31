@@ -322,7 +322,7 @@
     }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1920px) and (min-height: 1080) {
     .progress-box {
         font-size: 2.5rem;
         gap: 2rem;

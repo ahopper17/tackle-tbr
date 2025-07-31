@@ -320,10 +320,9 @@
 }
 
 /* Scale things up slightly for large desktop screens */
-@media (min-width: 1920px) and (min-height: 1300px) {
+@media (min-width: 1920px) {
   .home-heading {
-    font-size: 7rem;
-    margin-bottom: 8rem;
+    font-size: 6rem;
   }
 
   .main-content {
@@ -332,29 +331,29 @@
   }
 
   .cream-box {
-    font-size: 3rem;
+    font-size: 1.75rem;
     padding: 3rem;
     border-radius: 2rem;
   }
 
   .cream-heading {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 
   .cream-left {
-    font-size: 3rem;
+    font-size: 2.2rem;
     border-radius: 2rem;
   }
 
   .cream-right {
-    font-size: 2.2rem;
+    font-size: 1.75rem;
   }
 
   .cream-button {
-    font-size: 3.7rem;
+    font-size: 2.75rem;
     padding: 1.4rem 1.6rem;
     border-radius: 1.5rem;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 
   .cat-photo {
@@ -364,11 +363,11 @@
   }
 
   .second-cream {
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
 
   .second-layer {
-    margin-top: 12rem;
+    margin-top: 10rem;
   }
 
   .left-image {

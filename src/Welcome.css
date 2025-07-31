@@ -129,7 +129,7 @@
   }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1920px) and (min-height: 1080) {
   .welcome-container {
     padding: 6rem;
   }
