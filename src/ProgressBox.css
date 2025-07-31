@@ -89,26 +89,39 @@
 }
 
 .goal-input {
-    padding: 0.5rem;
-    margin: 1rem 0;
-    font-size: 1rem;
-    width: 80px;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    width: 100px;
+    border-radius: 8px;
+    background-color: #fff7f9;
+    color: var(--text);
+    text-align: center;
+    border-color: #fff7f9;
+    outline: none;
+}
+
+.goal-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(232, 174, 183, 0.25);
 }
 
 .modal-buttons {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin-top: 2rem;
 }
 
-.save-goal-button,
-.cancel-goal-button {
+.save-button {
     padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
     border: none;
-    background-color: var(--button);
-    color: white;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
+    gap: 1.5rem;
+    background-color: #E49375;
+    color: white;
 }
 
 .progress-buttons .edit-goal-button {
@@ -122,12 +135,24 @@
     transform: scale(1.05);
 }
 
-.cancel-goal-button {
+.cancel-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    gap: 1.5rem;
     background-color: #ccc;
 }
 
-.save-goal-button:hover,
-.cancel-goal-button:hover {
+.save-button:hover {
+    background-color: #DC724A;
+    transform: scale(1.05);
+}
+
+.cancel-button:hover {
+    background-color: #B3B3B3;
     transform: scale(1.05);
 }
 
@@ -205,6 +230,20 @@
     margin-top: -1.7rem;
 }
 
+.congrats-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+
 @media (max-width: 600px) {
     .progress-box {
         height: auto !important;
@@ -238,6 +277,7 @@
     }
 
     .tbr-stats-row {
+        display: flex;
         flex-direction: column;
         gap: 1rem;
         align-items: center;
@@ -248,19 +288,15 @@
     .tbr-stats-box {
         height: auto;
         overflow: visible;
-        margin: 0 auto;  
+        margin: 0 auto;
     }
 
     .tbr-stat {
-        margin: 0 auto;  
+        margin: 0 auto;
         flex: none;
-        /* 👈 removes flex-grow/stretch */
         width: 100%;
         max-width: 500px;
-        min-height: unset;
-        /* 👈 removes forced height */
-        display: block;
-        /* 👈 removes vertical centering unless needed */
+        margin-bottom: 0;
     }
 
     .progress-buttons {
@@ -283,5 +319,59 @@
         width: 100%;
         max-width: 260px;
         font-size: 1rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .progress-box {
+        font-size: 2.5rem;
+        gap: 2rem;
+    }
+
+    .progress-header {
+        font-size: 3rem;
+        margin-left: 1rem;
+    }
+
+    .progress-bar-background {
+        height: 26px;
+        border-radius: 14px;
+    }
+
+    .progress-buttons button,
+    .save-button,
+    .cancel-button,
+    .ban-button {
+        font-size: 3rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
+    }
+
+    .goal-input {
+        font-size: 2rem;
+        padding: 0.75rem 1.2rem;
+        width: 120px;
+        border-radius: 10px;
+    }
+
+    .modal-content {
+        max-width: 500px;
+        padding: 3rem;
+        border-radius: 16px;
+    }
+
+    .tbr-stat {
+        font-size: 2.3rem;
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .tbr-indicator {
+        font-size: 2rem;
+        margin-top: -2rem;
+    }
+
+    .buying-ban-status {
+        margin-top: 0rem;
     }
 }

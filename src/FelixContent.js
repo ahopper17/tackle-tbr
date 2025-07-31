@@ -10,7 +10,7 @@ export const felixQuotes = [
   "Reading a chapter won't kill you. Unlike the guilt you're clearly suppressing.",
   "Another book haul? You can't even haul yourself out of a reading slump.",
   "I sleep 18 hours a day and still finish more than you.",
-  "You're one library late fee away from financial ruin.",
+  "You're one book purchase away from financial ruin.",
   "At this point, even I know how The Priory of the Orange Tree ends.",
   "Just admit it — you liked the cover. Only shame.",
   "You bought three books and read zero. Your math isn't mathing.",
@@ -23,5 +23,7 @@ export const felixQuotes = [
 
 export const felixImages = [
   "/tackle-tbr/Felix-what.jpeg",
-  "/tackle-tbr/Felix-smug.jpg"
+  "/tackle-tbr/Felix-smug.jpg",
+  "/tackle-tbr/Felix-sleepy.jpg",
+  "/tackle-tbr/Felix-cute.jpeg"
 ];

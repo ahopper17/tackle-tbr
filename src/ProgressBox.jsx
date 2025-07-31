@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './ProgressBox.css';
 import { supabase } from './supabaseClient';
 import { punishmentList } from './punishments';
+import { motion, AnimatePresence } from 'framer-motion';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 function ProgressBox({ user, setUser }) {
     const goal = user.goal ?? 30;
@@ -24,6 +27,9 @@ function ProgressBox({ user, setUser }) {
     const [showLockModal, setShowLockModal] = useState(false);
     const [lockTarget, setLockTarget] = useState(user.ban_lock_target ?? '');
     console.log("ban_lock_active:", user.ban_lock_active);
+    const [justUnlocked, setJustUnlocked] = useState(false);
+    const previousTBR = useRef(currentTBR);
+    const { width, height } = useWindowSize();
 
 
 
@@ -64,6 +70,23 @@ function ProgressBox({ user, setUser }) {
             setShowPunishment(true);
         }
     };
+
+    useEffect(() => {
+        const wasAboveTarget = previousTBR.current > user?.ban_lock_target;
+        const nowAtOrBelowTarget = user?.tbr_count <= user?.ban_lock_target;
+
+        if (
+            user?.buying_ban_active &&
+            user?.ban_lock_active &&
+            wasAboveTarget &&
+            nowAtOrBelowTarget
+        ) {
+            setJustUnlocked(true);
+        }
+
+        previousTBR.current = user?.tbr_count;
+    }, [user]);
+
 
     return (
         <div className="progress-box">
@@ -175,6 +198,28 @@ function ProgressBox({ user, setUser }) {
 
             </div>
 
+            <AnimatePresence>
+                {justUnlocked && (
+                    <div className="modal-overlay">
+                        <Confetti width={width} height={height} numberOfPieces={300} gravity={0.3} />
+                        <motion.div
+                            className="modal-content"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            🎉 Congratulations! You've unlocked your book buying ban! Don't go too crazy now! 🎉
+                            <div className="modal-buttons">
+
+                                <button className="save-button"
+                                    onClick={() => setJustUnlocked(false)}>Yay!</button>
+                            </div>
+
+                        </motion.div></div>
+                )}
+            </AnimatePresence>
+
             {showLockModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -189,7 +234,7 @@ function ProgressBox({ user, setUser }) {
                         />
                         <div className="modal-buttons">
                             <button
-                                className="save-lock-button"
+                                className="ban-button"
                                 onClick={async () => {
                                     const { data, error } = await supabase
                                         .from('profiles')
@@ -209,7 +254,10 @@ function ProgressBox({ user, setUser }) {
                             >
                                 Lock Ban
                             </button>
-                            <button onClick={() => setShowLockModal(false)}>Cancel</button>
+                            <button className="cancel-button"
+                                onClick={() => setShowLockModal(false)}>
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -220,7 +268,7 @@ function ProgressBox({ user, setUser }) {
                     <div className="modal-content">
                         <h3>🚨 Book Buying Ban Violation!</h3>
                         <p>{punishment}</p>
-                        <button className="save-goal-button"
+                        <button className="save-button"
                             onClick={() => setShowPunishment(false)}>
                             Got it!</button>
                     </div>
@@ -239,7 +287,7 @@ function ProgressBox({ user, setUser }) {
                         />
                         <div className="modal-buttons">
                             <button
-                                className="save-goal-button"
+                                className="save-button"
                                 onClick={async () => {
                                     const { data, error } = await supabase
                                         .from('profiles')
@@ -259,7 +307,7 @@ function ProgressBox({ user, setUser }) {
                                 Save
                             </button>
                             <button
-                                className="cancel-goal-button"
+                                className="cancel-button"
                                 onClick={() => {
                                     setNewGoal(goal);
                                     setShowGoalModal(false);

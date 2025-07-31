@@ -5,6 +5,7 @@ import { felixQuotes, felixImages } from './FelixContent';
 import ProgressBox from './ProgressBox';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+import { motion } from 'framer-motion';
 
 function Dashboard() {
   const location = useLocation();
@@ -61,10 +62,21 @@ function Dashboard() {
     <div className="dashboard-container">
       <header className="dashboard-topbar">
         <div className="dashboard-user">Welcome, {user.username}!</div>
-        <div className="dashboard-quote">
+
+        <motion.div
+          key={randomQuote}
+          className="dashboard-quote"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            scale: { type: "spring", visualDuration: 0.6, bounce: 0.5 },
+          }}
+        >
           <img src={randomImage} alt="Felix the mascot" className="felix-icon" />
           <span className="quote-label">Felix says:</span> {randomQuote}
-        </div>
+        </motion.div>
+
         <h1 className="dashboard-title">📚 Project TBR</h1>
       </header>
       <main className="dashboard-main">

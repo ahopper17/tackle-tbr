@@ -1,124 +1,164 @@
 /* Welcome.css */
 
 :root {
-    --bg: #fdf2f6;
-    --accent: #e8aeb7;
-    --button: #d16d84;
-    --text: #3a3a3a;
-    --border: #e3c7cb;
-    --hover: #c95c75;
-  }
-  
-.welcome-container {
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--bg);
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem; /* might change back to 2rem*/
-    box-sizing: border-box;;
-  }
-  
-.welcome-heading {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-  
-.welcome-subheading {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    color: var(--accent);
-  }
-  
-.welcome-input {
-    font-size: 1.25rem;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-  
-.welcome-button {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    background-color: var(--button);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+  --bg: #fdf2f6;
+  --accent: #e8aeb7;
+  --button: #d16d84;
+  --text: #3a3a3a;
+  --border: #e3c7cb;
+  --hover: #c95c75;
+}
 
+.welcome-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  /* might change back to 2rem*/
+  box-sizing: border-box;
+  ;
+}
+
+.welcome-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.welcome-subheading {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.welcome-input {
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.welcome-button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: var(--button);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.welcome-button:hover {
+  background-color: var(--hover);
+  transform: scale(1.05);
+}
 
 .input-button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
 
-  
+
 .boolean-button-group {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    justify-content: center;
-  }
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
 
-  
+
 .fade-in {
-    animation: fadeIn 1s ease-in;
-  }
+  animation: fadeIn 1s ease-in;
+}
 
 .fade-out {
-    animation: fadeOut 1s ease-in forwards;
-  }
-  
+  animation: fadeOut 1s ease-in forwards;
+}
+
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @keyframes fadeOut {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-  }  
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
 
 @media (min-width: 768px) {
-    .welcome-container {
-      padding: 4rem;
-    }
-  
-    .welcome-subheading {
-      font-size: 2rem;
-    }
-  
-    .welcome-input {
-      font-size: 1.5rem;
-      width: 300px;
-    }
-  
-    .welcome-button {
-      font-size: 1.1rem;
-      padding: 0.8rem 1.6rem;
-    }
+  .welcome-container {
+    padding: 4rem;
   }
-  
-  
+
+  .welcome-subheading {
+    font-size: 2rem;
+  }
+
+  .welcome-input {
+    font-size: 1.5rem;
+    width: 300px;
+  }
+
+  .welcome-button {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.6rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .welcome-container {
+    padding: 6rem;
+  }
+
+  .welcome-heading {
+    font-size: 4rem;
+  }
+
+  .welcome-subheading {
+    font-size: 2.5rem;
+  }
+
+  .welcome-input {
+    font-size: 2rem;
+    width: 400px;
+    border-radius: 12px;
+  }
+
+  .welcome-button {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+  }
+
+  .input-button-group {
+    gap: 2rem;
+  }
+
+  .boolean-button-group {
+    gap: 2rem;
+  }
+}

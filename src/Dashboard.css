@@ -7,6 +7,8 @@
 }
 
 .loading-heading {
+    display: flex;
+    justify-content: center;
     font-size: 5rem;
     font-weight: 600;
     color: var(--text);
@@ -159,5 +161,56 @@
         padding: 0.3rem;
         width: 40px;
         height: 40px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .dashboard-topbar {
+        padding: 1rem 4rem;
+    }
+
+    .dashboard-title {
+        font-size: 3rem;
+    }
+
+    .dashboard-user {
+        font-size: 3rem;
+    }
+
+    .dashboard-button {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.6rem;
+        border-radius: 8px;
+    }
+
+    .dashboard-main {
+        padding: 3rem 4rem;
+        gap: 3rem;
+    }
+
+    .tbr-stats-box,
+    .activities-box {
+        padding: 3rem;
+        border-radius: 20px;
+        font-size: 1.6rem;
+    }
+
+    .box-header {
+        font-size: 2.5rem;
+    }
+
+    .dashboard-quote {
+        font-size: 2rem;
+        gap: 1rem;
+        padding: 0 2rem;
+    }
+
+    .felix-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loading-heading {
+        font-size: 6rem;
     }
 }
