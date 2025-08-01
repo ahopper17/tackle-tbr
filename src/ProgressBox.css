@@ -91,7 +91,7 @@
 .goal-input {
     padding: 0.5rem 1rem;
     font-size: 1.3rem;
-    width: 100px;
+    width: 120px;
     border-radius: 8px;
     background-color: #fff7f9;
     color: var(--text);
@@ -144,6 +144,36 @@
     cursor: pointer;
     gap: 1.5rem;
     background-color: #ccc;
+}
+
+.cancel-button-date {
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    gap: 1.5rem;
+    background-color: #ccc;
+    margin-top: 1rem;
+}
+
+.cancel-button-date:hover {
+    background-color: #B3B3B3;
+    transform: scale(1.05);
+}
+
+.progress-buttons .edit-deadline-button {
+    background-color: #E49375;
+    color: white;
+    font-weight: 600;
+    font-size: 1.3rem;
+    justify-content: center;
+}
+
+.progress-buttons .edit-deadline-button:hover {
+    background-color: #DC724A;
+    transform: scale(1.05);
 }
 
 .save-button:hover {
@@ -215,6 +245,15 @@
     font-size: 1.3rem;
     font-weight: 600;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    align-items: center;
+}
+
+.no-deadline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
 }
 
 .highlight {
@@ -241,6 +280,14 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
+}
+
+.deadline-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
 }
 
 

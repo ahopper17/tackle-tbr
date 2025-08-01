@@ -6,6 +6,8 @@ import ProgressBox from './ProgressBox';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { motion } from 'framer-motion';
+import SettingsModal from './SettingsModal';
+
 
 function Dashboard() {
   const location = useLocation();
@@ -14,6 +16,9 @@ function Dashboard() {
   const randomImage = felixImages[Math.floor(Math.random() * felixImages.length)];
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
 
   useEffect(() => {
@@ -61,24 +66,39 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-topbar">
-        <div className="dashboard-user">Welcome, {user.username}!</div>
+        <div className="topbar-left">
+          <div className="dashboard-user">Welcome, {user.username}!</div>
+        </div>
 
-        <motion.div
-          key={randomQuote}
-          className="dashboard-quote"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.4,
-            scale: { type: "spring", visualDuration: 0.6, bounce: 0.5 },
-          }}
-        >
-          <img src={randomImage} alt="Felix the mascot" className="felix-icon" />
-          <span className="quote-label">Felix says:</span> {randomQuote}
-        </motion.div>
+        <div className="topbar-center">
+          <motion.div
+            key={randomQuote}
+            className="dashboard-quote"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.4,
+              scale: { type: "spring", visualDuration: 0.6, bounce: 0.5 },
+            }}
+          >
+            <img src={randomImage} alt="Felix the mascot" className="felix-icon" />
+            <span className="quote-label">Felix says:</span> {randomQuote}
+          </motion.div>
+        </div>
 
-        <h1 className="dashboard-title">📚 Project TBR</h1>
+        <div className="topbar-right">
+          <h1 className="dashboard-title">📚 Project TBR</h1>
+          <div className="settings-container">
+            <button
+              className="settings-toggle"
+              onClick={() => setShowModal(true)}
+            >
+              ⚙️
+            </button>
+          </div>
+        </div>
       </header>
+
       <main className="dashboard-main">
         <div className="tbr-stats-box">
           <ProgressBox user={user} setUser={setUser} />
@@ -89,6 +109,37 @@ function Dashboard() {
           <p> Work in progress! Check back soon! </p>
         </div>
       </main>
+
+      {showModal && (
+        <SettingsModal
+          user={user}
+          onClose={() => setShowModal(false)}
+          onSave={async (updates) => {
+            const { error } = await supabase
+              .from('profiles')
+              .update(updates)
+              .eq('id', user.id);
+
+            if (error) {
+              console.error('Update failed:', error.message);
+              return;
+            }
+
+            const { data, error: fetchError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+
+            if (fetchError) {
+              console.error('Failed to fetch updated user:', fetchError.message);
+            } else {
+              setUser(data);
+            }
+          }}
+        />
+      )}
+
     </div>
   );
 }

@@ -1,0 +1,101 @@
+:root {
+    --bg: #fdf2f6;
+    --accent: #e8aeb7;
+    --button: #d16d84;
+    --text: #3a3a3a;
+    --border: #e3c7cb;
+    --hover: #c95c75;
+}
+
+/* Modal Overlay */
+.settings-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* Modal Content */
+.settings-modal-content {
+    background: #fffaf4;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.settings-field { 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Inputs */
+.settings-input {
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    width: 120px;
+    border-radius: 8px;
+    background-color: #fff7f9;
+    color: var(--text);
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+.settings-input:focus {
+    box-shadow: 0 0 0 3px rgba(232, 174, 183, 0.25);
+}
+
+/* Modal Buttons */
+.settings-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.save-settings-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #E49375;
+    color: white;
+}
+
+.cancel-settings-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ccc;
+}
+
+.save-settings-button:hover {
+    background-color: #DC724A;
+    transform: scale(1.05);
+}
+
+.cancel-settings-button:hover {
+    background-color: #B3B3B3;
+    transform: scale(1.05);
+}
