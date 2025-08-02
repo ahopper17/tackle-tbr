@@ -179,7 +179,11 @@ function ProgressBox({ user, setUser }) {
                     At your current pace of <span className="highlight">{average_books_month}</span> books/month, you'll need about <span className="highlight">{monthsToZero.toFixed(1)}</span> months (or <span className="highlight">{yearsToZero.toFixed(1)}</span> years) to read your whole TBR — if no new books sneak in! 📚
                 </p>
 
-                {user.missed_goal_acknowledged ? (
+                {!user.chill_mode && !user.missed_goal_acknowledged ? (
+                    <p className="tbr-stat">
+                        To reach your goal of <span className="highlight">{goal}</span> books by <span className="highlight">{formattedEndDate}</span>, you'd need to read <span className="highlight">{requiredPace.toFixed(1)}</span> books/month. You're {onTrack ? "on track ✅ Keep it up!" : "a bit behind 😬 Get reading!"}
+                    </p>
+                ) : (
                     <p className="tbr-stat no-deadline">
                         No deadline right now — you're reading at your own pace 📚💆‍♀️
                         <div className="progress-buttons">
@@ -187,10 +191,6 @@ function ProgressBox({ user, setUser }) {
                                 Set a deadline
                             </button>
                         </div>
-                    </p>
-                ) : (
-                    <p className="tbr-stat">
-                        To reach your goal of <span className="highlight">{goal}</span> books by <span className="highlight">{formattedEndDate}</span>, you'd need to read <span className="highlight">{requiredPace.toFixed(1)}</span> books/month. You're {onTrack ? "on track ✅ Keep it up!" : "a bit behind 😬 Get reading!"}
                     </p>
                 )}
 
@@ -326,6 +326,7 @@ function ProgressBox({ user, setUser }) {
                                         .update({
                                             end_date: newEndDate,
                                             missed_goal_acknowledged: false,
+                                            chill_mode: false,
                                         })
                                         .eq('username', user.username)
                                         .select()

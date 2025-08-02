@@ -69,6 +69,12 @@
     margin-top: 2rem;
 }
 
+.settings-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--button);
+}
+
 .save-settings-button {
     padding: 0.5rem 1rem;
     font-size: 1.4rem;
@@ -98,4 +104,12 @@
 .cancel-settings-button:hover {
     background-color: #B3B3B3;
     transform: scale(1.05);
+}
+
+.chill-caption {
+    font-size: 0.9rem;
+    color: #8a8686;
+    text-align: center;
+    margin-top: 0.5rem;
+    max-width: 300px;
 }
