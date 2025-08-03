@@ -1,0 +1,84 @@
+.punishment-picker {
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    z-index: 1000;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fffaf4;
+    padding: 0.5rem 3rem 3rem 3rem;
+    border-radius: 16px;
+    max-width: 95%;
+    width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.card-row {
+    display: flex;
+    gap: 6rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.done-button {
+    margin-top: 7rem;
+    margin-bottom: 0rem;
+    background-color: var(--button);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.done-button:hover {
+    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 1rem;
+        width: 95%;
+        max-width: none;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 12px;
+    }
+
+    .card-row {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0rem;
+        margin: 0.5rem 0;
+    }
+
+    .done-button {
+        margin-top: 3rem;
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .punishment-picker {
+        padding: 0.5rem;
+    }
+}

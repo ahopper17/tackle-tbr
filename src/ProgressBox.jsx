@@ -5,6 +5,7 @@ import { punishmentList } from './punishments';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+import PunishmentPicker from './PunishmentPicker';
 
 function ProgressBox({ user, setUser }) {
     const goal = user.goal ?? 30;
@@ -30,7 +31,6 @@ function ProgressBox({ user, setUser }) {
     const [showLockModal, setShowLockModal] = useState(false);
     const [showMissedGoalModal, setShowMissedGoalModal] = useState(false);
     const [lockTarget, setLockTarget] = useState(user.ban_lock_target ?? '');
-    console.log("ban_lock_active:", user.ban_lock_active);
     const [justUnlocked, setJustUnlocked] = useState(false);
     const previousTBR = useRef(currentTBR);
     const { width, height } = useWindowSize();
@@ -38,6 +38,8 @@ function ProgressBox({ user, setUser }) {
     const [showStartTBRModal, setShowStartTBRModal] = useState(false);
     const [newEndDate, setNewEndDate] = useState(user.end_date || '');
     const [showDeadlineModal, setShowDeadlineModal] = useState(false);
+    const [showPicker, setShowPicker] = useState(false);
+
 
 
 
@@ -107,10 +109,31 @@ function ProgressBox({ user, setUser }) {
             nowAtOrBelowTarget
         ) {
             setJustUnlocked(true);
+
+            const unlockBan = async () => {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .update({
+                        ban_lock_active: false,
+                        ban_lock_target: null
+                    })
+                    .eq('username', user.username)
+                    .select()
+                    .single();
+
+                if (error) {
+                    console.error("Error clearing ban lock:", error.message);
+                } else {
+                    setUser(data); // update local state with cleared lock
+                }
+            };
+
+            unlockBan();
         }
 
         previousTBR.current = user?.tbr_count;
     }, [user]);
+
 
 
     useEffect(() => {
@@ -600,15 +623,32 @@ function ProgressBox({ user, setUser }) {
                 showPunishment && (
                     <div className="modal-overlay">
                         <div className="modal-content">
-                            <h3>🚨 Book Buying Ban Violation!</h3>
-                            <p>{punishment}</p>
-                            <button className="save-button"
-                                onClick={() => setShowPunishment(false)}>
-                                Got it!</button>
+                            <h3>🚨 Book Buying Ban Violation! </h3>
+                            <button className="save-button" onClick={() => {
+                                setShowPunishment(false); // close the modal first
+                                setTimeout(() => {
+                                    setShowPicker(true); // then show the animation
+                                }, 200); // 150–300ms usually feels smooth
+                            }}
+                            >
+                                Pick my Punishment!
+                            </button>
                         </div>
                     </div>
                 )
             }
+
+            {showPicker && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <PunishmentPicker
+                            punishmentList={punishmentList}
+                            onDone={() => setShowPicker(false)}
+                        />
+                    </div>
+                </div>
+            )}
+
 
             {
                 showGoalModal && (

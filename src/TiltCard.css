@@ -1,0 +1,46 @@
+:root {
+    --bg: #fdf2f6;
+    --accent: #e8aeb7;
+    --button: #d16d84;
+    --text: #3a3a3a;
+    --border: #e3c7cb;
+    --hover: #c95c75;
+}
+
+.tilt-card {
+    width: 240px;
+    height: 360px;
+    border-radius: 16px;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    /* <- Don't add color here */
+    padding: 0;
+    margin: 0;
+}
+
+.tilt-card:hover {
+    transform: scale(1.05);
+}
+
+.tilt-card-content {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    transform: translateZ(25px);
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none !important;
+}
+
+.tilt-card-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    transform: translateZ(40px);
+}
