@@ -644,6 +644,7 @@ function ProgressBox({ user, setUser }) {
                         <PunishmentPicker
                             punishmentList={punishmentList}
                             onDone={() => setShowPicker(false)}
+                            user={user}
                         />
                     </div>
                 </div>

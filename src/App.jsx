@@ -7,6 +7,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 
 import { useEffect, useState } from "react";
+import PunishmentLogAndStats from './PunishmentLogAndStats';
 
 function ViewportDebugger() {
   const [size, setSize] = useState({
@@ -55,6 +56,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/stats" element={<PunishmentLogAndStats />} />
       </Routes>
       {/* <ViewportDebugger /> */}
     </Router>

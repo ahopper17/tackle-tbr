@@ -77,6 +77,21 @@
     cursor: pointer;
 }
 
+.activities-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.7rem;
+    background-color: var(--button);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.activities-button:hover {
+    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
 .dashboard-button:hover {
     background-color: var(--hover);
     transform: scale(1.05);
@@ -218,6 +233,7 @@
         width: 80%;
         height: 80vh;
         margin-bottom: 1.5rem;
+        align-items: center;
         text-align: center;
     }
 

@@ -1,6 +1,9 @@
 import './SettingsModal.css';
 import { useState } from 'react';
 import Switch from 'react-switch';
+import { supabase } from './supabaseClient';
+import { useNavigate } from 'react-router-dom';
+
 
 function SettingsModal({ user, onClose, onSave }) {
     const [startingTBR, setStartingTBR] = useState(user.starting_tbr || '');
@@ -8,6 +11,8 @@ function SettingsModal({ user, onClose, onSave }) {
     const [pace, setPace] = useState(user.average_books_month || '');
     const [tbrCount, setTBRcount] = useState(user.tbr_count || '');
     const [chillMode, setChillMode] = useState(user.chill_mode || false);
+    const navigate = useNavigate();
+
 
 
     const handleSave = () => {
@@ -30,7 +35,7 @@ function SettingsModal({ user, onClose, onSave }) {
                 <h2>Update Your Settings</h2>
 
                 <div className="settings-field">
-                    <div className = "settings-header">Starting TBR</div>
+                    <div className="settings-header">Starting TBR</div>
                     <input
                         className="settings-input"
                         type="number"
@@ -86,6 +91,16 @@ function SettingsModal({ user, onClose, onSave }) {
                         handleDiameter={18}
                     />
                     <p className="chill-caption">Remove the deadline pressure and just read at your own pace. 📚😌</p>
+                </div>
+
+                <div className="settings-field">
+                    <div className="logout-button"
+                        onClick={async () => {
+                            await supabase.auth.signOut();
+                            navigate('/login');
+                        }}>
+                        Log Out of Account
+                    </div>
                 </div>
 
                 <div className="settings-modal-buttons">

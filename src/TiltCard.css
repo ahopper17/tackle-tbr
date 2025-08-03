@@ -21,10 +21,6 @@
     margin: 0;
 }
 
-.tilt-card:hover {
-    transform: scale(1.05);
-}
-
 .tilt-card-content {
     position: absolute;
     inset: 0;

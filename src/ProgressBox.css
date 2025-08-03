@@ -187,7 +187,7 @@
 }
 
 .buying-ban-status {
-    margin-top: 1rem;
+    margin-top: 0rem;
     text-align: center;
 }
 
@@ -233,6 +233,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
+    margin-bottom: -0.75rem;
 }
 
 .tbr-stat {

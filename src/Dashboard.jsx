@@ -8,7 +8,6 @@ import { supabase } from './supabaseClient';
 import { motion } from 'framer-motion';
 import SettingsModal from './SettingsModal';
 
-
 function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,26 +21,32 @@ function Dashboard() {
 
 
   useEffect(() => {
-    const fetchFreshUser = async () => {
-      const username = location.state?.user?.username;
-      if (username) {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('username', username)
-          .single();
+    const loadProfile = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
 
-        if (error) {
-          console.error('Error fetching fresh user data:', error.message);
-        } else {
-          setUser(data);
-        }
+      if (!session) {
+        navigate('/login'); // no session, redirect
+        return;
       }
-      setLoading(false);
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profileError) {
+        console.error(profileError.message);
+      } else {
+        setUser(profile);
+      }
+
+      setLoading(false); // ✅ move this *outside* the if/else
     };
 
-    fetchFreshUser();
+    loadProfile();
   }, []);
+
 
   if (loading) {
     return <div className="loading-heading"><p>Loading your dashboard...</p></div>;
@@ -106,6 +111,8 @@ function Dashboard() {
 
         <div className="activities-box">
           <h1 className="box-header"> Activities </h1>
+          <button className="activities-button"
+            onClick={() => navigate('/stats')}>📊 Stats & Punishment Log</button>
           <p> Work in progress! Check back soon! </p>
         </div>
       </main>

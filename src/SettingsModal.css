@@ -96,6 +96,22 @@
     background-color: #ccc;
 }
 
+.logout-button {
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--button);
+    color: white;
+}
+
+.logout-button:hover {
+    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
 .save-settings-button:hover {
     background-color: #DC724A;
     transform: scale(1.05);

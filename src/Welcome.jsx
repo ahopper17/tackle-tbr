@@ -116,7 +116,7 @@ function StepContent({ step, className, formData, setFormData, goToNextStep, nav
       const timer = setTimeout(() => {
         goToNextStep();
       }, 2000); // 2 seconds — adjust if you want longer
-  
+
       return () => clearTimeout(timer); // cleanup
     }
   }, [step, goToNextStep]);
@@ -224,32 +224,53 @@ function StepContent({ step, className, formData, setFormData, goToNextStep, nav
             className="welcome-button"
             onClick={async () => {
               const { username, password, ...profileData } = formData;
-            
+
               if (!username || !password) {
                 alert("Please enter a username and password.");
                 return;
               }
-              const starting_tbr = parseInt(profileData.tbr_count); 
-              
-              const { error } = await supabase.from("profiles").insert([
+
+              const email = `${username.toLowerCase()}@tbr.com`;
+
+              // 1. Sign up the user in Auth
+              const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+                email,
+                password,
+              });
+
+              if (signUpError) {
+                alert("Signup failed: " + signUpError.message);
+                return;
+              }
+
+              const { user } = signUpData;
+
+              // 2. Insert the profile linked to Auth user ID
+              const starting_tbr = parseInt(profileData.tbr_count);
+
+              const { error: profileError } = await supabase.from("profiles").insert([
                 {
+                  id: user.id, // linked to Auth user
                   username,
-                  password,
-                  ...profileData,
-                  starting_tbr
+                  starting_tbr,
+                  tbr_count: starting_tbr,
+                  goal: parseInt(profileData.goal),
+                  average_books_month: parseFloat(profileData.average_books_month),
+                  end_date: profileData.end_date,
+                  buying_ban_active: profileData.buying_ban_active
                 }
               ]);
-            
-              if (error) {
-                alert(error.message);
+
+              if (profileError) {
+                alert("Error creating profile: " + profileError.message);
               } else {
-                navigate('/dashboard', { state: { user: { username, ...profileData } } });
+                navigate('/dashboard');
               }
             }}
           >
             Create Account
           </button>
-          
+
         </div>
       </div>
     );
@@ -261,4 +282,3 @@ function StepContent({ step, className, formData, setFormData, goToNextStep, nav
 export default Welcome;
 
 
-  
