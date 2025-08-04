@@ -87,9 +87,10 @@ function ProgressBox({ user, setUser }) {
         }
     };
 
-    const handleTBRChange = (delta) => {
+    const handleTBRChange = (delta, actionType ) => {
         const newTBR = Math.max(0, currentTBR + delta);
         updateTBRinSupabase(newTBR);
+        logBookActionToProfile(actionType);
 
         if (delta > 0 && user.buying_ban_active) {
             const random = punishmentList[Math.floor(Math.random() * punishmentList.length)];
@@ -97,6 +98,32 @@ function ProgressBox({ user, setUser }) {
             setShowPunishment(true);
         }
     };
+
+    const logBookActionToProfile = async (actionType) => {
+        let updateField = {};
+
+        if (actionType === 'read') {
+            updateField = { books_read: (user.books_read ?? 0) + 1 };
+        } else if (actionType === 'unhaul') {
+            updateField = { books_removed: (user.books_removed ?? 0) + 1 };
+        } else if (actionType === 'buy') {
+            updateField = { books_bought: (user.books_bought ?? 0) + 1 };
+        }
+
+        const { data, error } = await supabase
+            .from('profiles')
+            .update(updateField)
+            .eq('username', user.username)
+            .select()
+            .single();
+
+        if (error) {
+            console.error(`Error logging ${actionType}:`, error.message);
+        } else {
+            setUser(data); // Update local state with new values
+        }
+    };
+
 
     useEffect(() => {
         const wasAboveTarget = previousTBR.current > user?.ban_lock_target;
@@ -189,9 +216,9 @@ function ProgressBox({ user, setUser }) {
             </p>
 
             <div className="progress-buttons">
-                <button onClick={() => handleTBRChange(-1)}>Read one</button>
-                <button onClick={() => handleTBRChange(-1)}>Unhauled one</button>
-                <button onClick={() => handleTBRChange(1)}>Bought one</button>
+                <button onClick={() => handleTBRChange(-1, 'read')}>Read one</button>
+                <button onClick={() => handleTBRChange(-1, 'unhaul')}>Unhauled one</button>
+                <button onClick={() => handleTBRChange(1, 'buy')}>Bought one</button>
                 <button className="edit-goal-button" onClick={() => setShowGoalModal(true)}>
                     Update Goal
                 </button>

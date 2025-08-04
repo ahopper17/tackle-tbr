@@ -76,9 +76,10 @@ function PunishmentLogAndStats() {
       <div className="stats-box">
         <h2>📊 Your Stats</h2>
         <ul className="stats-list">
-          <li>Total books read: <strong>—</strong></li>
-          <li>Books unhauled: <strong>—</strong></li>
-          <li>Books bought during ban: <strong>{punishments.length}</strong></li>
+          <li>Total books read: <strong>{user.books_read}</strong></li>
+          <li>Books unhauled: <strong>{user.books_removed}</strong></li>
+          <li>Books bought: <strong>{user.books_bought}</strong></li>
+          <li>Ban broken: <strong>{punishments.length} times</strong></li>
         </ul>
       </div>
 
