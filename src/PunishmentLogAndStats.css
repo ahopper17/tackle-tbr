@@ -4,26 +4,34 @@
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
-    font-family: 'Segoe UI', sans-serif;
     color: var(--text);
 }
 
 .stats-box,
 .punishment-log-box {
-    flex: 1 1 400px;
-    max-width: 500px;
     background: #fffaf4;
-    border: 2px solid var(--border);
     border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
+.stats-box {
+    flex: 1;
+    max-width: none;
+    /* Let it grow freely */
+}
+
+.punishment-log-box {
+    flex: 2;
+    max-width: none;
+}
+
 .stats-box h2,
 .punishment-log-box h2 {
+    margin-top: 0rem;
     font-size: 1.75rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
+    color: var(--button);
+    margin-bottom: 2rem;
 }
 
 .stats-list {
@@ -44,24 +52,38 @@
 }
 
 .punishment-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-radius: 12px;
-    padding: 1rem;
+    padding: 1rem 2rem 1rem 1rem;
     background-color: #fff;
-    border: 2px solid var(--border);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
     transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .punishment-item.completed {
     background-color: #e8f8e3;
-    text-decoration: line-through;
     color: #777;
+}
+
+.punishment-item.completed .punishment-text {
+    text-decoration: line-through;
+}
+
+
+.punishment-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
 }
 
 .punishment-text {
     font-size: 1.1rem;
     display: block;
-    margin-bottom: 0.5rem;
 }
 
 .punishment-actions {
@@ -90,4 +112,112 @@
 .empty-log {
     font-size: 1rem;
     color: #666;
+}
+
+.delete-x {
+    font-size: 1rem;
+    color: #aaa;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease, color 0.2s ease;
+    margin-left: 1rem;
+    pointer-events: auto;
+    font-weight: 200;
+}
+
+.punishment-item:hover .delete-x {
+    opacity: 1;
+}
+
+.delete-x:hover {
+    color: var(--hover);
+}
+
+.punishment-item.completed .punishment-duration {
+    font-size: 0.95rem;
+    color: #888;
+    margin-top: 0.25rem;
+    text-decoration: none;
+    font-style: italic;
+    display: inline-block;
+}
+
+.clear-btn {
+    background-color: var(--border);
+    color: var(--text);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.clear-btn:hover {
+    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
+.punishment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.punishment-item.hidden {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: all 1s ease;
+}
+
+@media (max-width: 768px) {
+    .stats-page {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .stats-box,
+    .punishment-log-box {
+        flex: 1 1 100%;
+        padding: 1rem;
+    }
+
+    .stats-list {
+        font-size: 1rem;
+    }
+
+    .punishment-text {
+        font-size: 1rem;
+    }
+
+    .done-btn,
+    .delete-btn,
+    .clear-btn {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    .punishment-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .delete-x {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+        opacity: 1;
+        /* Show delete button on mobile */
+    }
+
+    .punishment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
 }

@@ -43,17 +43,17 @@ function Home() {
             transition={{ duration: 1.5, delay: 1.65, ease: 'easeInOut' }}
           >
             <div className="cream-box">
-              <h2 className="cream-heading">Welcome to Project TBR ✨</h2>
+              <h2 className="cream-heading">Welcome to Ex LiTBRis ✨</h2>
 
               <div className="cream-columns">
                 <div className="cream-left">
                   <p><strong>Track your habits and rediscover forgotten reads. Your TBR is waiting... </strong></p>
-                  <button className="cream-button" onClick={() => navigate('/login')}>Log In to PTBR</button>
+                  <button className="cream-button" onClick={() => navigate('/login')}>Log in to Track!</button>
                   <button className="cream-button" onClick={() => navigate('/welcome')}>Create Account</button>
                 </div>
                 <div className="cream-right">
                   <p><strong>It's often said that book buying and reading are two different hobbies.</strong> Yet it still gets stressful when that TBR pile starts to climb. Books sit on shelves for years, forgotten or grown out of, all because there aren't enough hours in the day to keep up with our spending habits.</p>
-                  <p>Let's get through the stack together. Through interactive prompts, games, and quizzes, Project TBR is a fun way to hold yourself accountable, start book buying bans, and finally read down your TBR. <strong>Your TBR has feelings. Let's give it the attention it deserves.</strong></p>
+                  <p>Let's get through the stack together. Through interactive prompts, games, and quizzes, Ex LiTBRis is a fun way to hold yourself accountable, start book buying bans, and finally read down your TBR. <strong>Your TBR has feelings. Let's give it the attention it deserves.</strong></p>
                   <p>Felix, the official mascot, is here for you →</p>
                 </div>
               </div>

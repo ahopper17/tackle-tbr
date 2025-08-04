@@ -56,7 +56,7 @@ function Dashboard() {
     return (
       <div className="dashboard-container">
         <header className="dashboard-topbar">
-          <h1 className="dashboard-title">📚 Project TBR</h1>
+          <h1 className="dashboard-title">📚 Ex LiTBRis</h1>
         </header>
         <main className="dashboard-main">
           <h2 className="dashboard-heading">You must be logged in to view this page.</h2>
@@ -92,7 +92,7 @@ function Dashboard() {
         </div>
 
         <div className="topbar-right">
-          <h1 className="dashboard-title">📚 Project TBR</h1>
+          <h1 className="dashboard-title">📚 Ex LiTBRis </h1>
           <div className="settings-container">
             <button
               className="settings-toggle"

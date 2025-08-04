@@ -257,7 +257,8 @@ function StepContent({ step, className, formData, setFormData, goToNextStep, nav
                   goal: parseInt(profileData.goal),
                   average_books_month: parseFloat(profileData.average_books_month),
                   end_date: profileData.end_date,
-                  buying_ban_active: profileData.buying_ban_active
+                  buying_ban_active: profileData.buying_ban_active,
+                  start_date: new Date(),
                 }
               ]);
 
