@@ -113,6 +113,8 @@ function Dashboard() {
           <h1 className="box-header"> Activities </h1>
           <button className="activities-button"
             onClick={() => navigate('/stats')}>📊 Stats & Punishment Log</button>
+          <button className="activities-button"
+            onClick={() => navigate('/meter')}>📖 Read or Unhaul?</button>
           <p> Work in progress! Check back soon! </p>
         </div>
       </main>

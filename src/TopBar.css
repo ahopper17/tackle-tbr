@@ -1,0 +1,141 @@
+:root {
+    --bg: #fdf2f6;
+    --accent: #e8aeb7;
+    --button: #d16d84;
+    --text: #3a3a3a;
+    --border: #e3c7cb;
+    --hover: #c95c75;
+}
+
+/* Container */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 2rem;
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Regions */
+.topbar-left,
+.topbar-center,
+.topbar-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-left {
+    justify-content: flex-start;
+}
+
+.topbar-center {
+    justify-content: center;
+}
+
+.topbar-right {
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.topbar-user {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.topbar-quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #fffbe8;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    font-weight: 400;
+    max-width: 100ch;
+    min-height: 3.5rem;
+}
+
+.felix-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Settings */
+.settings-container {
+    position: relative;
+    display: inline-block;
+}
+
+.settings-toggle {
+    background: rgba(244, 93, 93, 0.5);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.settings-toggle:hover {
+    background: rgba(244, 93, 93, 0.8);
+}
+
+.brand-button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    /* keep your current text color */
+    font: inherit;
+    /* inherit font styles */
+}
+
+.brand-button:hover {
+    background-color: rgba(0, 0, 0, 0.1) ;
+}
+
+.brand-button:focus-visible {
+    outline: 2px solid rgba(0, 0, 0, 0.35);
+    /* accessible focus ring */
+    outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .topbar {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .topbar-user,
+    .topbar-title {
+        font-size: 1.5rem;
+    }
+
+    .topbar-quote {
+        font-size: 1rem;
+        flex-direction: column;
+        white-space: normal;
+    }
+
+    .felix-icon {
+        padding: 0.3rem;
+        width: 40px;
+        height: 40px;
+    }
+}

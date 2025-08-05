@@ -1,66 +1,74 @@
 // src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Home from './Home';
 import Welcome from './Welcome';
 import Login from './Login';
 import Dashboard from './Dashboard';
-
-import { useEffect, useState } from "react";
+import QuizMeter from './QuizMeter';
 import PunishmentLogAndStats from './PunishmentLogAndStats';
+import TopBar from './TopBar';
+import { felixQuotes, felixImages } from './FelixContent';
+import { supabase } from './supabaseClient';
 
-function ViewportDebugger() {
-  const [size, setSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  });
+function LayoutWithTopBar() {
+  const [user, setUser] = useState(null);
+
+  const quote = useMemo(
+    () => felixQuotes[Math.floor(Math.random() * felixQuotes.length)],
+    []
+  );
+  const image = useMemo(
+    () => felixImages[Math.floor(Math.random() * felixImages.length)],
+    []
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+    const loadProfile = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setUser(null);
+        return;
+      }
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      setUser(error ? null : profile);
+      if (error) console.error('Error loading profile:', error.message);
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    loadProfile();
   }, []);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: "1rem",
-        right: "1rem",
-        background: "rgba(0,0,0,0.7)",
-        color: "white",
-        padding: "0.5rem 1rem",
-        borderRadius: "10px",
-        fontSize: "1rem",
-        zIndex: 9999,
-        fontFamily: "monospace"
-      }}
-    >
-      {size.width} x {size.height}
-    </div>
+    <>
+      <TopBar user={user} quote={quote} image={image} />
+      <Outlet />
+    </>
   );
 }
 
-
-function App() {
+export default function App() {
   return (
     <Router basename="/tackle-tbr">
       <Routes>
+        {/* No topbar on these */}
         <Route path="/" element={<Home />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/stats" element={<PunishmentLogAndStats />} />
+
+        {/* Topbar only for these routes */}
+        <Route element={<LayoutWithTopBar />}>
+          <Route path="/stats" element={<PunishmentLogAndStats />} />
+          <Route path="/meter" element={<QuizMeter />} />
+        </Route>
       </Routes>
-      {/* <ViewportDebugger /> */}
     </Router>
   );
 }
 
-export default App;
+
