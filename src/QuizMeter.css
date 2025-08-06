@@ -1,8 +1,16 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    /* disables page scroll entirely */
+}
+
 .quiz-container {
     padding: 2rem;
     max-width: 600px;
     margin: 0 auto;
-    margin-top: 8rem;
+    margin-top: 6rem;
     background: #fffaf4;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -89,3 +97,128 @@
     margin-bottom: 1rem;
 }
 
+/* Centered start screen */
+.quiz-start-screen {
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 48px);
+}
+
+.start-card {
+    max-width: 720px;
+    width: min(92vw, 680px);
+    text-align: center;
+    padding: clamp(20px, 5vw, 40px);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    background: var(--panel, #fff);
+}
+
+.start-card h1 {
+    margin: 0 0 0.5rem;
+    font-size: 3rem;
+}
+
+.start-card p {
+    margin: 0 0 1.25rem;
+    line-height: 1.5;
+    font-size: 1.5rem;
+}
+
+/* Buttons (reuse your theme vars) */
+button.primary {
+    background-color: var(--button);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button.primary:hover {
+    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
+.result-actions {
+    display: flex;
+    gap: .75rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.result-actions .secondary {
+    background: transparent;
+    border: 2px solid var(--button, #999);
+    color: inherit;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.gauge-wrap {
+    width: 100%;
+    /* allow fluid sizing */
+    max-width: 560px;
+    /* cap size on desktop */
+    margin: 1rem auto;
+}
+
+/* Simple fade-in to smooth the swap */
+.fade-in {
+    animation: fadeIn .35s ease both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .quiz-container {
+        margin-top: 2rem;
+        /* was 8rem, reduces extra height on small screens */
+    }
+
+    .quiz-start-screen {
+        margin-top: 5rem;
+        /* was 10rem */
+    }
+
+    .start-card h1 {
+        font-size: 2rem;
+        /* smaller headings for mobile */
+    }
+
+    .start-card p {
+        font-size: 1.1rem;
+    }
+
+    .button-row {
+        flex-direction: column;
+        /* stack buttons on small screens */
+        gap: 1rem;
+    }
+
+    .button-row button {
+        width: 100%;
+        /* full width buttons on mobile */
+    }
+
+    .gauge-wrap {
+        max-width: 320px;
+        /* smaller cap on phones */
+    }
+}

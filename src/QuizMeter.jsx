@@ -6,6 +6,8 @@ const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const toGauge = (score) => ((clamp(score, -10, 10) + 10) / 20) * 100; // 0..100
 
 export default function QuizMeter() {
+    const [started, setStarted] = useState(false);
+
     const questions = [
         {
             text: "Does this book genuinely excite you?",
@@ -63,6 +65,14 @@ export default function QuizMeter() {
                 { label: "No, I haven't read from this author before.", impact: 0 },
             ]
         },
+        {
+            text: "Does the book have any sentimental value to you?",
+            answers: [
+                { label: "Yes, and I'd have a really hard time getting rid of it.", impact: 5 },
+                { label: "A little, but it's not the most special book I have.", impact: 1 },
+                { label: "No, I have no attachment to this book.", impact: -1 },
+            ]
+        },
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -98,6 +108,24 @@ export default function QuizMeter() {
 
     const gaugeValue = toGauge(rawScore);
 
+
+    if (!started) {
+        return (
+            <div className="quiz-start-screen fade-in">
+                <div className="start-card">
+                    <h1>To read or not To read? Let's find out!</h1>
+                    <p>Pick up a book you're unsure about and answer a few quick questions about your feelings towards it. The meter will nudge you toward <b>Read</b> or <b>Unhaul</b>!</p>
+                    <button
+                        className="primary"
+                        onClick={() => setStarted(true)}
+                    >
+                        Start Quiz
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="quiz-container">
             {!finished ? (
@@ -117,8 +145,8 @@ export default function QuizMeter() {
                             value={gaugeValue}
                             minValue={0}
                             maxValue={100}
-                            width={560}
-                            height={320}
+                            width={window.innerWidth <= 768 ? 240 : 560} // 300px on phone, 560px otherwise
+                            height={window.innerWidth <= 768 ? 150 : 320}
                             segments={5555}
                             maxSegmentLabels={0}
                             currentValueText=""
@@ -143,8 +171,8 @@ export default function QuizMeter() {
                             value={gaugeValue}
                             minValue={0}
                             maxValue={100}
-                            width={560}
-                            height={320}
+                            width={window.innerWidth <= 768 ? 240 : 560} // 300px on phone, 560px otherwise
+                            height={window.innerWidth <= 768 ? 150 : 320}
                             segments={555}
                             maxSegmentLabels={0}
                             currentValueText=""
