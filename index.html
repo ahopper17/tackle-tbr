@@ -2,6 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- ============================================================
+         Pre-hydration theme applier.
+
+         Runs synchronously during HTML parse, BEFORE the CSS link
+         below is applied and BEFORE React mounts. Reads the user's
+         last-chosen theme from localStorage and sets it on <html>,
+         so the very first paint already uses the correct palette.
+
+         Without this: page paints default pink → React mounts →
+         profile loads from Supabase → theme swaps (visible flash).
+         With this: data-theme is set before the first paint, so no
+         flash — the trade-off is a ~20-line inline script.
+
+         Must stay in sync with src/themes.js:
+           - storage key: 'ex-litbris-theme'
+           - valid ids:   matches the :root[data-theme=...] blocks
+                          in tokens.css
+
+         Skipped on Home (/). Home explicitly renders in default
+         pink, so we don't want to briefly show the authenticated
+         theme just because the user visited /dashboard earlier.
+         ============================================================ -->
+    <script>
+      (function () {
+        try {
+          var p = window.location.pathname;
+          if (p === '/' || p === '/tackle-tbr/' || p === '/tackle-tbr') return;
+          var t = localStorage.getItem('ex-litbris-theme');
+          if (t && t !== 'default') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) { /* localStorage disabled (private browsing, etc.) */ }
+      })();
+    </script>
+
     <!-- Favicon: Felix the judgmental grey tabby.
          type="image/jpeg" because the file is a JPG (not SVG like the
          old Vite default). The href is relative to Vite's `base`
@@ -14,8 +50,45 @@
     <link rel="apple-touch-icon" href="/tackle-tbr/Felix-smug.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tackle your TBR!</title>
-    <script type="module" crossorigin src="/tackle-tbr/assets/index-PQBKNIpi.js"></script>
-    <link rel="stylesheet" crossorigin href="/tackle-tbr/assets/index-ewxyHgmG.css">
+
+    <!-- Standard description for search engines. -->
+    <meta
+      name="description"
+      content="A little reading journal for people with too many books. Track your TBR, set a goal, and let a sassy grey cat keep you honest."
+    />
+
+    <!-- ============================================================
+         Open Graph — used by Slack, iMessage, Discord, Facebook,
+         LinkedIn, etc. to render a preview card when someone shares
+         the URL. og:image MUST be an absolute URL (not a relative
+         path), because the consuming service fetches it from its
+         own server. That's why these are hardcoded to the deployed
+         origin; if you ever move the site off github.io, update them.
+         ============================================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ex LiTBRis" />
+    <meta property="og:url" content="https://ahopper17.github.io/tackle-tbr/" />
+    <meta property="og:title" content="Ex LiTBRis — read the books you already own" />
+    <meta
+      property="og:description"
+      content="A little reading journal for people with too many books. Track your TBR, set a goal, and let Felix keep you honest."
+    />
+    <meta property="og:image" content="https://ahopper17.github.io/tackle-tbr/Felix-smug.jpg" />
+    <meta property="og:image:alt" content="Felix, a grey tabby cat, looking mildly disappointed." />
+
+    <!-- Twitter / X specifically. `summary` shows a square image
+         next to the text; `summary_large_image` shows a wide banner
+         and expects a 2:1 aspect image. Felix-smug is roughly square
+         so `summary` renders cleaner. -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ex LiTBRis — read the books you already own" />
+    <meta
+      name="twitter:description"
+      content="A little reading journal for people with too many books. Track your TBR, set a goal, and let Felix keep you honest."
+    />
+    <meta name="twitter:image" content="https://ahopper17.github.io/tackle-tbr/Felix-smug.jpg" />
+    <script type="module" crossorigin src="/tackle-tbr/assets/index-DB2BbUXT.js"></script>
+    <link rel="stylesheet" crossorigin href="/tackle-tbr/assets/index-39ML7D3q.css">
   </head>
   <body>
     <div id="root"></div>
